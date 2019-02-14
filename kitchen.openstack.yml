@@ -1,0 +1,50 @@
+---
+driver:
+  name: openstack
+  openstack_username: <%= ENV['OS_USERNAME'] %>
+  openstack_api_key: <%= ENV['OS_PASSWORD'] %>
+  openstack_auth_url: <%= ENV['OS_AUTH_URL'] %>
+  openstack_project_id: <%= ENV['OS_PROJECT_ID'] %>
+  openstack_region: <%= ENV['OS_REGION'] %>
+  openstack_interface: <%= ENV['OS_INTERFACE'] %>
+  network_id: <%= ENV['OS_NETWORK_ID'] %>
+  key_name: <%= ENV['OS_KEY_NAME'] %>
+  security_groups: [ <%= ENV['OS_SECURITY_GROUPS'] %> ]
+  image_id: <%= ENV['OS_IMAGE_ID'] %>
+  flavor_id: <%= ENV['OS_FLAVOR_ID'] %>
+  require_chef_omnibus: true
+  read_timeout: 180
+  write_timeout: 180
+  connect_timeout: 180
+
+transport:
+  ssh_key: ~/.ssh/id_rsa
+  connection_timeout: 10
+  connection_retries: 5
+  username: ubuntu
+
+provisioner:
+  name: ansible_playbook
+  require_ruby_for_busser: false
+  require_chef_for_busser: false
+  require_ansible_repo: true
+  hosts: all
+  ansible_verbose: true
+  # ansible_version: 2.7.7.0
+  roles_path: roles
+  playbook: main.yml
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: ubuntu_18.04_openstack
+    transport:
+      username: ubuntu
+
+suites:
+  - name: node1
+    includes: ubuntu_18.04_openstack
+    verifier:
+        inspec_tests:
+          - test/integration/default/node1_test.rb

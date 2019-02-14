@@ -1,0 +1,58 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: ansible_playbook
+  require_ruby_for_busser: false
+  require_chef_for_busser: false
+  require_ansible_repo: true
+  hosts: all
+  ansible_verbose: true
+  # ansible_version: 2.7.7.0
+  # roles_path: roles
+  playbook: main.yml
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: ubuntu_18.04_vagrant
+    driver:
+        box: ubuntu/bionic64
+
+suites:
+  - name: node1
+    driver:
+      network:
+      - ["private_network", {ip: "192.168.33.11"}]
+      customize:
+        cpus: 1
+        memory: 1024
+      cachier: true
+    includes: ubuntu_18.04_vagrant
+    attributes:
+      extra_vars:
+        hosts:
+          - node: 192.168.33.11
+          - node: 192.168.33.12
+    verifier:
+        inspec_tests:
+          - test/integration/default
+  - name: node2
+    driver:
+      network:
+      - ["private_network", {ip: "192.168.33.12"}]
+      customize:
+        cpus: 1
+        memory: 1024
+      cachier: true
+    includes: ubuntu_18.04_vagrant
+    attributes:
+      extra_vars:
+        hosts:
+          - node1: 192.168.33.11
+          - node2: 192.168.33.12
+    verifier:
+        inspec_tests:
+          - test/integration/default

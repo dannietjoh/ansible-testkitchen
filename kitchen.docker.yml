@@ -1,0 +1,35 @@
+---
+driver:
+  name: docker
+
+provisioner:
+  name: ansible_playbook
+  require_ruby_for_busser: false
+  require_chef_for_busser: false
+  require_ansible_repo: true
+  hosts: all
+  ansible_verbose: true
+  # ansible_version: 2.7.7.0
+  # roles_path: roles
+  playbook: main.yml
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: ubuntu_18.04_docker
+    driver_config:
+      image: ubuntu:18.04
+      platform: ubuntu
+
+suites:
+  - name: node1
+    includes: ubuntu_18.04_docker
+    verifier:
+        inspec_tests:
+          - test/integration/default/node1_test.rb
+  - name: node2
+    includes: ubuntu_18.04_docker
+    verifier:
+        inspec_tests:
+          - test/integration/default/node2_test.rb

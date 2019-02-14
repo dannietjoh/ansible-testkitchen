@@ -1,0 +1,8 @@
+---
+- name: create users with password
+  become: true
+  become_method: sudo
+  user:
+    name: "{{ item.name }}"
+    password: "{{ item.password }}"
+  with_items: "{{ users }}"

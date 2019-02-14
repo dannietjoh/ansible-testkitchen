@@ -1,0 +1,6 @@
+---
+users:
+  - name: alice
+    password: $6$uRFk9Xfm$rRSqBcDonlyogroBkv0T6dn2M1leQia5IPD6sWP38QjsCcd41xvN7k3HeuV6s5NzzAelYO0oKlyQxjQjNONVt. #123
+  - name: bob
+    password: $6$6pbe.vdja7O.lxQ$UGDFS6P7mCu7DIuShfjSF/xpAH7KwYeKJIpxLQ3sQ3pk6Lnv33GpEaVgSuqXjXZt4GgCCDxY8aQBSAbebDuX11 #456

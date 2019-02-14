@@ -1,0 +1,9 @@
+---
+- name: Configure hostname
+  lineinfile:
+    path: /etc/hosts
+    regexp: '^127\.0\.0\.1'
+    line: '127.0.0.1 localhost {{ ansible_hostname }}'
+    owner: root
+    group: root
+    mode: 0644
