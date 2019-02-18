@@ -25,11 +25,17 @@ platforms:
 suites:
   - name: node1
     includes: ubuntu_18.04_docker
+    attributes:
+      extra_vars:
+        provider: docker
     verifier:
         inspec_tests:
           - test/integration/default/node1_test.rb
   - name: node2
     includes: ubuntu_18.04_docker
+    attributes:
+      extra_vars:
+        provider: docker
     verifier:
         inspec_tests:
           - test/integration/default/node2_test.rb

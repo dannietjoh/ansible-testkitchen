@@ -2,6 +2,12 @@
 - name: ansible-playbook
   hosts: localhost
   gather_facts: true
-  roles:
-    - hostname
-    - users
+
+  tasks:
+    - name: Configure hostname
+      include_role:
+        name: hostname
+      when: provider != 'docker'
+    - name: Configure users
+      include_role:
+        name: users

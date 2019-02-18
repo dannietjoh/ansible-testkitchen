@@ -33,6 +33,7 @@ suites:
     includes: ubuntu_18.04_vagrant
     attributes:
       extra_vars:
+        provider: vagrant
         hosts:
           - node: 192.168.33.11
           - node: 192.168.33.12
@@ -50,6 +51,7 @@ suites:
     includes: ubuntu_18.04_vagrant
     attributes:
       extra_vars:
+        provider: vagrant
         hosts:
           - node1: 192.168.33.11
           - node2: 192.168.33.12

@@ -45,6 +45,9 @@ platforms:
 suites:
   - name: node1
     includes: ubuntu_18.04_openstack
+    attributes:
+      extra_vars:
+        provider: openstack
     verifier:
         inspec_tests:
           - test/integration/default/node1_test.rb
