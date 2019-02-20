@@ -3,7 +3,7 @@
 SHELL := /bin/bash
 
 ##@ Tasks
-kitchen: ## kitchen driver="driver" task="task"
+kitchen: ## kitchen driver="driver" task="task" node="node" (optional)
 	@if [ -z "$(driver)" \
 			-o -z "$(task)" \
 		] ; then \
@@ -11,7 +11,7 @@ kitchen: ## kitchen driver="driver" task="task"
 		echo 'Use: make $@ driver="driver" task="task"'; \
 		exit 1; \
 	fi
-	@KITCHEN_YAML="kitchen.${driver}.yml" kitchen ${task}
+	@KITCHEN_YAML="kitchen.${driver}.yml" kitchen ${task} ${node}
 
 ##@ Helpers
 cloc:	## Show Lines of Code analysis
